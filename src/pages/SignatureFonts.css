@@ -1,0 +1,14 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Pacifico&family=Great+Vibes&display=swap');
+
+.font-dancing {
+  font-family: 'Dancing Script', cursive;
+}
+
+.font-pacifico {
+  font-family: 'Pacifico', cursive;
+}
+
+.font-great {
+  font-family: 'Great Vibes', cursive;
+}
