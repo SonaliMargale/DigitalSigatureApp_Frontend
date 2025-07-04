@@ -9,6 +9,8 @@ import DraggableSignature from "./DraggableSignature";
 
 pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.js";
 
+ const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
 const UploadPdf = () => {
   const fileInputRef = useRef(null);
   const [previewPdf, setPreviewPdf] = useState(null);
@@ -30,7 +32,7 @@ const UploadPdf = () => {
     formData.append("pdf", file);
 
     try {
-      const res = await fetch("http://localhost:4000/api/docs/upload", {
+      const res = await fetch(`${backendUrl}/api/docs/upload`, {
         method: "POST",
         body: formData,
         credentials: "include",
@@ -74,7 +76,7 @@ const UploadPdf = () => {
 
     // console.log("FINAL PAYLOAD SENT TO BACKEND:", JSON.stringify(placed, null, 2));
 
-    fetch("http://localhost:4000/api/signatures/save", {
+    fetch(`${backendUrl}/api/signatures/save`, {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
@@ -94,7 +96,7 @@ const UploadPdf = () => {
 
   const handleFinalizeSignature = async () => {
     try {
-      const res = await fetch(`http://localhost:4000/api/signatures/finalize/${previewPdf._id}`, {
+      const res = await fetch(`${backendUrl}/api/signatures/finalize/${previewPdf._id}`, {
         method: "POST",
         credentials: "include",
       });
@@ -146,7 +148,7 @@ const UploadPdf = () => {
           <div className="relative max-w-4xl mx-auto h-[90vh] border shadow bg-gray-900 overflow-auto rounded p-4">
             <DndContext onDragEnd={handleDragEnd}>
               <Document
-                file={`http://localhost:4000/${previewPdf.path}`}
+                file={`${backendUrl}/${previewPdf.path}`}
                 onLoadSuccess={({ numPages }) => setNumPages(numPages)}
               >
                 {Array.from({ length: numPages }, (_, index) => (

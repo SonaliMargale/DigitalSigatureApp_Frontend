@@ -4,22 +4,25 @@ import { useNavigate } from "react-router-dom";
 import { AppContent } from "../context/AppContext";
 import { toast } from 'react-toastify';
 
+ const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
+ console.log(backendUrl,"backendurl")
 
 const Login = () => {
 
     const navigate = useNavigate()
 
     const { setIsLoggedin } = useContext(AppContent)
-
     const [state, setState] = useState('Sign Up')
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')
 
+
     const onSubmitHandler = async (e) => {
         try {
             e.preventDefault();
-            const url = state === 'Sign Up' ? 'http://localhost:4000/api/auth/register' : 'http://localhost:4000/api/auth/login';
+            const url = state === 'Sign Up' ? `${backendUrl}/api/auth/register` : `${backendUrl}/api/auth/login`;
             const payload = state === 'Sign Up' ? { name, email, password } : { email, password };
 
             const response = await fetch(url, {

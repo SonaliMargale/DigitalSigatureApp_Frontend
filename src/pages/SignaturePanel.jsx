@@ -3,6 +3,8 @@ import SignatureCanvas from "react-signature-canvas";
 import { toast } from "react-toastify";
 import "./SignatureFonts.css";
 
+ const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
 const fonts = [
   { name: "Dancing Script", class: "font-dancing" },
   { name: "Pacifico", class: "font-pacifico" },
@@ -47,7 +49,7 @@ const SignaturePanel = ({
   const handleFinalizeSignature = async () => {
     try {
       const response = await fetch(
-        `http://localhost:4000/api/signatures/finalize/${fileId}`,
+        `${backendUrl}/api/signatures/finalize/${fileId}`,
         {
           method: "POST",
           credentials: "include",
